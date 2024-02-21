@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\admin\ProductsController;
-
+use App\Http\Controllers\admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +18,13 @@ use App\Http\Controllers\admin\ProductsController;
 |
 */
 Route::get('/', function () {
+    return '<h1>trang chủ</h1>';
+})->name('home');
+
+
+Route::get('/', function () {
     return view('home');
 });
-
-
 
 
 // Route::get('/', function () {
@@ -150,6 +153,7 @@ Route::prefix('categories')->group(function () {
 });
 
 //admin route
-Route::prefix('admin') -> group(function(){
-    Route::resource('products', ProductsController::class);
+Route::middleware('auth.admin')->prefix('admin')->group(function () {
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::middleware('auth.admin.product')->resource('products', ProductsController::class);
 });
