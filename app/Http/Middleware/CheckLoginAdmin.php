@@ -25,5 +25,6 @@ class CheckLoginAdmin
     public function isLogin()
     {
         return false;
+        
     }
 }
