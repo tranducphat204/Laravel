@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
+    public function getAllProducts()
+    {
+        return 'all product';
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        return 'Danh sách sản phẩm';
+        //Sử dụng session để check login 
+        // return 'Danh sách sản phẩm';
     }
 
     /**
