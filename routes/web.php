@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\admin\ProductsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +17,7 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function(){
+Route::get('/', function () {
     return view('home');
 });
 
@@ -35,12 +38,12 @@ Route::get('/form', function () {
 
 Route::post('/unicode/{slug}-{id}.html', function ($slug, $id) { //Sẽ hoạt động theo thứ tự khai báo. Sau tên thư mục
     $content = 'Phương thức Post của Path với tham số: ';
-    $content.='id = '.$id;
-    $content.='slug = '.$slug;  
+    $content .= 'id = ' . $id;
+    $content .= 'slug = ' . $slug;
     return $content;
 });
 //Trường hợp tham số không bắt buộc
-Route::post('/unicode/{id?}', function ($id=null) {
+Route::post('/unicode/{id?}', function ($id = null) {
     $content = 'Phương thức Post của Path với tham số: ';
     $content .= 'id = ' . $id;
     return $content;
@@ -58,11 +61,11 @@ Route::post('/unicode/{slug}-{id}.html', function ($slug, $id) {
     $content .= 'slug = ' . $slug;
     return $content;
 })->where(
-    [
-        'slug' => '.+',
-        'id' => '[0-9]+'
-    ]
-);
+        [
+            'slug' => '.+',
+            'id' => '[0-9]+'
+        ]
+    );
 
 Route::get('/unicode', function () {
     return "Phương thức Get của Path";
@@ -103,14 +106,15 @@ Route::prefix('admin')->group(function () {
     Route::get('show-form', function () {
         return view('form');
     })->name('admin.show-form');
-    
+
     Route::prefix('products')->group(function () {
         Route::get('/', function () {
             return 'Danh sách sản phẩm';
 
         });
         Route::get('add', function () {
-            return 'Thêm sản phẩm'; });
+            return 'Thêm sản phẩm';
+        });
         Route::get('edit', function () {
             return 'Sửa sản phẩm';
         });
@@ -118,4 +122,34 @@ Route::prefix('admin')->group(function () {
             return 'Xoá sản phẩm';
         });
     });
+});
+
+Route::prefix('categories')->group(function () {
+    //Lấy danh sách chuyên mục
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
+
+    //Lấy chi tiết một chuyên mục
+    Route::get('/edit/{id}', [CategoriesController::class, 'getCategories'])->name('categories.edit');
+    ;
+
+    //xử lí update chuyên mục
+    Route::post('/edit/{id}', [CategoriesController::class, 'udateCategories']);
+    ;
+
+    //Hiển thị form add dl
+    Route::get('/add', [CategoriesController::class, 'addCategories'])->name('categories.add');
+    ;
+
+    //xử lý thêm chuyên mục
+    Route::post('/add', [CategoriesController::class, 'handleAddCategories']);
+
+    //xoá chuyên mục
+    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategories'])->name('categories.delete');
+    ;
+
+});
+
+//admin route
+Route::prefix('admin') -> group(function(){
+    Route::resource('products', ProductsController::class);
 });
