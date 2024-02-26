@@ -22,7 +22,6 @@ Route::get('/', function () {
     return '<h1>trang chủ</h1>';
 })->name('home');
 
-
 Route::get('/', function () {
     $title = 'Học lập trình';
     $content = 'Học lập trình laravel';
