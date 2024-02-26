@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,14 @@ Route::get('/', function () {
 
 
 Route::get('/', function () {
-    return view('home');
+    $title = 'Học lập trình';
+    $content = 'Học lập trình laravel';
+    // $data = [
+    //     'title' => $title,
+    //     'content' => $content
+    // ];
+    // return view('home', $data);
+    return view('home', compact('title', 'content')); //cách 2
 });
 
 
