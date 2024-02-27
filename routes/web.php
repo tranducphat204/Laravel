@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\HomeController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -157,7 +156,9 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
 
     //xoá chuyên mục
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategories'])->name('categories.delete');
-    ;
+    
+    //Xử lí file
+    Route::Post('/upload',[CategoriesController::class, 'handleFile']);
 
 });
 
