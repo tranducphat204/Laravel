@@ -134,7 +134,9 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::prefix('categories')->group(function () {
+Route::get('/', [HomeController::class], 'index')->name('home')->middleware('auth.admin');
+
+Route::middleware('auth.admin')->prefix('categories')->group(function () {
     //Lấy danh sách chuyên mục
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
 
