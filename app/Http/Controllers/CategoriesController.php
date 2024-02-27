@@ -37,6 +37,8 @@ class CategoriesController extends Controller
 
         $id = $request->id;
         $name = $request->name;
+
+        $id = $request->query('id');
         dd($input);
 
 
@@ -57,7 +59,7 @@ class CategoriesController extends Controller
     }
 
     //thêm dữ liệu vào chuyên mục(phương thức POST)
-    public function addCategory()
+    public function handleAddCategory()
     {
         return view('clients/categories/add');
     }
@@ -66,7 +68,40 @@ class CategoriesController extends Controller
     {
         $allData = $request->all();
         dd($allData);
+
+        if ($request->isMethod('POST')) {
+            echo 'Method POST';
+        }
+
+        $cateName = $request->category_name; //trả về mảng
+        dd($cateName);
+
+        // if ($request->has('category_name')) {
+        //     $cateName = $request->category_name;
+        //     dd($cateName);
+        // } else {
+        //     return 'Không có category_name';
+        // }
+
+
+        if ($request->has('category_name')) {
+            $cateName = $request->category_name;
+            $request->flash;
+            return redirect(route('categories.add'));
+        } else {
+            return 'Không có category_name';
+        }
+
         // return 'Submit thêm chuyên mục';
+    }
+
+    public function addCategory(Request $request)
+    {
+        // $path = $request -> path();
+        // echo $path;
+        $old = $request->old('category_name');
+        // echo $old;
+        return view('clients/categories/add');
     }
 
     //show form thêm dữ liệu
@@ -79,5 +114,23 @@ class CategoriesController extends Controller
     public function deleteCategory($id)
     {
         return 'Submit xoá chuyên mục' . $id;
+    }
+
+    //xử lí lấy thôg tin file
+    public function handleFile(Request $request)
+    {
+        if ($request->hasFile('photo')) {
+            if($request -> hasFile('photo')){
+                $file = $request->file('photo');
+                $file = $request -> photo;
+                $path = $file -> store('image');
+                dd($path);
+            }else{
+                return "Upload không thành công";
+            }
+        } else {
+            echo "Chọn file";
+        }
+
     }
 }
