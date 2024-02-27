@@ -22,7 +22,6 @@ Route::get('/', function () {
     return '<h1>trang chủ</h1>';
 })->name('home');
 
-
 Route::get('/', function () {
     $title = 'Học lập trình';
     $content = 'Học lập trình laravel';
@@ -135,7 +134,9 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::prefix('categories')->group(function () {
+Route::get('/', [HomeController::class], 'index')->name('home')->middleware('auth.admin');
+
+Route::middleware('auth.admin')->prefix('categories')->group(function () {
     //Lấy danh sách chuyên mục
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
 

@@ -20,11 +20,14 @@ class CheckLoginAdmin
             return redirect(route('home'));
         }
         ;
+        if ($request->is('admin')) {
+            echo 'khu vực qtri';
+        }
         return $next($request);
     }
     public function isLogin()
     {
         return false;
-        
+
     }
 }
