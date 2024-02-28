@@ -143,6 +143,7 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
     Route::get('/edit/{id}', [CategoriesController::class, 'getCategories'])->name('categories.edit');
     ;
 
+    
     //xử lí update chuyên mục
     Route::post('/edit/{id}', [CategoriesController::class, 'udateCategories']);
     ;
