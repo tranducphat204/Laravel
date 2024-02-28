@@ -35,5 +35,6 @@ class HomeConTroller extends Controller
     {
         $this->data['title'] = 'sản phẩm';
         return view('clients.products', $this->data);
+   
     }
 }
