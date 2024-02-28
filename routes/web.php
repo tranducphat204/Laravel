@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\HomeController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return '<h1>trang chủ</h1>';
 })->name('home');
@@ -70,11 +71,11 @@ Route::post('/unicode/{slug}-{id}.html', function ($slug, $id) {
     $content .= 'slug = ' . $slug;
     return $content;
 })->where(
-        [
-            'slug' => '.+',
-            'id' => '[0-9]+'
-        ]
-    );
+    [
+        'slug' => '.+',
+        'id' => '[0-9]+'
+    ]
+);
 
 Route::get('/unicode', function () {
     return "Phương thức Get của Path";
@@ -119,7 +120,6 @@ Route::prefix('admin')->group(function () {
     Route::prefix('products')->group(function () {
         Route::get('/', function () {
             return 'Danh sách sản phẩm';
-
         });
         Route::get('add', function () {
             return 'Thêm sản phẩm';
@@ -140,27 +140,23 @@ Route::middleware('auth.admin')->prefix('categories')->group(function () {
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
 
     //Lấy chi tiết một chuyên mục
-    Route::get('/edit/{id}', [CategoriesController::class, 'getCategories'])->name('categories.edit');
-    ;
+    Route::get('/edit/{id}', [CategoriesController::class, 'getCategories'])->name('categories.edit');;
 
-    
+
     //xử lí update chuyên mục
-    Route::post('/edit/{id}', [CategoriesController::class, 'udateCategories']);
-    ;
+    Route::post('/edit/{id}', [CategoriesController::class, 'udateCategories']);;
 
     //Hiển thị form add dl
-    Route::get('/add', [CategoriesController::class, 'addCategories'])->name('categories.add');
-    ;
+    Route::get('/add', [CategoriesController::class, 'addCategories'])->name('categories.add');;
 
     //xử lý thêm chuyên mục
     Route::post('/add', [CategoriesController::class, 'handleAddCategories']);
 
     //xoá chuyên mục
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategories'])->name('categories.delete');
-    
-    //Xử lí file
-    Route::Post('/upload',[CategoriesController::class, 'handleFile']);
 
+    //Xử lí file
+    Route::Post('/upload', [CategoriesController::class, 'handleFile']);
 });
 
 //admin route
@@ -168,3 +164,5 @@ Route::middleware('auth.admin')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::middleware('auth.admin.product')->resource('products', ProductsController::class);
 });
+
+Route::get('/san-pham', [HomeController::class, 'products']);
