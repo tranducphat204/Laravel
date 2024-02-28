@@ -61,6 +61,36 @@
             @default
             <p>số còn lại</p>
             @endswitch
+
+            @php
+            $numeber =10;
+            if($number >= 10){
+            $total += 10;
+            }else
+            $total = $number +20;
+            @endphp
+            <h3>kết quả {{$number}} - total: {{$total}}</h3>
+
+            <!-- @forelse ($dataArr as $item)
+            <p>Phần tử: {{$item}}</p>
+            @empty
+            <p>Không có phần tử nào</p>
+            @endforelse -->
+            <!-- Chỉ comment html chứ lệnh vẫn chạy -->
+
+
+            {{-- @forelse ($dataArr as $item)
+            <p>Phần tử: {{$item}}</p>
+            @empty
+            <p>Không có phần tử nào</p>
+            @endforelse -->
+            <!-- Chỉ comment html chứ lệnh vẫn chạy --}}
+            <!-- Comment dành cho templte -->
+
+            {{--@php
+            $message ='Đặt hàng thành công';
+            @endphp--}}
+            @include('parts.notice')
     </main>
     <footer>
         <h1>Footer</h1>
