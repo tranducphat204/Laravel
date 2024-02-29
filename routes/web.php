@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -166,3 +166,6 @@ Route::middleware('auth.admin')->prefix('admin')->group(function () {
 });
 
 Route::get('/san-pham', [HomeController::class, 'products']);
+Route::get('/themsanpham', [HomeController::class, 'getAdd']);
+Route::post('/them-san-pham', [HomeController::class, 'postAdd']);
+// Route::put('/themsanpham', [HomeController::class, 'putAdd']);

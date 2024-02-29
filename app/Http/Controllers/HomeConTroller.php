@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -35,5 +38,20 @@ class HomeConTroller extends Controller
     {
         $this->data['title'] = 'sản phẩm';
         return view('clients.products', $this->data);
+    }
+    public function getAdd()
+    {
+        $this->data['title'] = 'Thêm sản phẩm';
+
+        return view('layouts.clients.add', $this->data);
+    }
+
+    public function postAdd(Request $request)
+    {
+        dd($request);
+    }
+    public function putAdd(Request $request)
+    {
+        dd($request);
     }
 }
