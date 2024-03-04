@@ -128,6 +128,7 @@
 
     @section('content')
     <h1>Trang products</h1>
+    <x-package-alert></x-package-alert>
     <button type="button" class="show">Show</button>
     @endsection
 

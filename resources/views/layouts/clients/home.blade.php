@@ -78,6 +78,10 @@
             @extends('layouts.client')
             @section('title')
             <h1>Trang chủ</h1>
+            <x-alert type="info" :content="$message" data-icon="youtube" />
+            <!-- <x-inputs.button/>
+
+            <x-forms.button /> -->
             @endsection
 
             @section('css')
