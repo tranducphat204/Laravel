@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
+use Illuminate\Http\Response;
+use Illuminate\Mail\Mailables\Content;
+use PhpParser\Node\Stmt\Return_;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -165,7 +171,20 @@ Route::middleware('auth.admin')->prefix('admin')->group(function () {
     Route::middleware('auth.admin.product')->resource('products', ProductsController::class);
 });
 
-Route::get('/san-pham', [HomeController::class, 'products']);
-Route::get('/themsanpham', [HomeController::class, 'getAdd']);
-Route::post('/them-san-pham', [HomeController::class, 'postAdd']);
-// Route::put('/themsanpham', [HomeController::class, 'putAdd']);
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/sanpham', [HomeController::class, 'products'])->name('products');
+Route::get('/them-san-pham', [HomeController::class, 'getAdd']);
+//Route::post('/them-san-pham',[HomeController::class,'postAdd']);
+Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
+
+
+Route::get('lay-thong-tin', [HomeController::class, 'getArray']);
+Route::get('/demo-response', function () {
+    //return view('client.demo-test');
+    $response = response()->view('client.demo-test', [
+        'title' => 'Học Http tại Unicode'
+    ], 201)->header('Content-Type', 'application/json');
+    return  $response;
+});
