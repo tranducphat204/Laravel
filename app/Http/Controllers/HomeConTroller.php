@@ -38,7 +38,6 @@ class HomeConTroller extends Controller
     {
         $this->data['title'] = 'sản phẩm';
         return view('clients.products', $this->data);
-   
     }
     public function getAdd()
     {
@@ -54,5 +53,26 @@ class HomeConTroller extends Controller
     public function putAdd(Request $request)
     {
         dd($request);
+    }
+    public function getArray()
+    {
+        $contentArray = [
+            'name' => 'Laravel 8.x',
+            'lesson' => 'Khóa học lập trình',
+            'academy' => 'unicode âcdemy'
+        ];
+        return $contentArray;
+    }
+    public function downloadImg(Request $request)
+    {
+        if (!empty($request->image)) {
+            $fileName = 'image_' . uniqid() . 'jpg';
+
+            $image = trim($request->image);
+            return response()->streamDownload(function () use ($image) {
+                $imageContent = file_get_contents($image);
+                echo $imageContent;
+            }, $fileName);
+        }
     }
 }
